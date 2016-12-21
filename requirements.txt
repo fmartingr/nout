@@ -1,0 +1,8 @@
+# File monitoring
+watchdog>=0.8.0,<0.8.99
+
+# CLI
+click>=6.0,<=6.0.99
+
+# Database
+dataset>=0.7.0,<=0.7.99
