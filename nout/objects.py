@@ -17,12 +17,12 @@ class BaseObject:
 
 
 class File(BaseObject):
-    def __init__(self, path):
+    def __init__(self, path, stat=True):
         self.path = path
         self.relative_path = self.get_relative_path(self.path)
 
         # If file exists (maybe it's deleted!)
-        if os.path.isfile(self.path):
+        if stat:
             self.sync()
 
     def sync(self):

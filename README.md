@@ -1,5 +1,7 @@
 # nout
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/06d9024261ee4ec796993f6521e897de)](https://www.codacy.com/app/fmartingr/nout?utm_source=github.com&utm_medium=referral&utm_content=fmartingr/nout&utm_campaign=badger)
+[![Build Status](https://travis-ci.org/fmartingr/nout.svg?branch=master)](https://travis-ci.org/fmartingr/nout)
+[![codecov](https://codecov.io/gh/fmartingr/nout/branch/master/graph/badge.svg)](https://codecov.io/gh/fmartingr/nout)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/fmartingr/nout/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/fmartingr/nout/?branch=master)
 
-Simple note taking app
+Simple note taking app.

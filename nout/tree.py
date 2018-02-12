@@ -12,15 +12,19 @@ from .storage import DatabaseStorage
 
 
 logger = logging.getLogger(__name__)
-db = DatabaseStorage()
 
 
 class Tree(metaclass=Singleton):
-    files = {}
-
-    def __init__(self):
+    def __init__(self, enable_database=True):
+        self.files = {}
         self.ignore_patterns = config.ignore_patterns
-        self.database = db
+
+        if enable_database:
+            self.database = DatabaseStorage()
+
+    @property
+    def database_enabled(self):
+        return getattr(self, 'database', False)
 
     def matches_ignore_patterns(self, filename):
         return any([fnmatch.fnmatchcase(filename, pattern)
@@ -34,21 +38,21 @@ class Tree(metaclass=Singleton):
                     self.add_file(file_path)
 
     def add_file(self, path):
-        file_object = File(path)
+        file_object = File(path, stat=True)
         self.files[file_object.relative_path] = file_object
-        self.database.add_to_queue('create', file_object)
+        if self.database_enabled:
+            self.database.add_to_queue('create', file_object)
 
     def delete_file(self, path):
-        file_object = File(path)
+        file_object = File(path, stat=False)
         if file_object.relative_path in self.files:
-            self.database.add_to_queue(
-                'remove', self.files[file_object.relative_path])
-            print('Deleted')
             del self.files[file_object.relative_path]
-        # TODO warn if not?
+            if self.database_enabled:
+                self.database.add_to_queue(
+                    'remove', self.files[file_object.relative_path])
 
     def update_file(self, path):
-        pass  # for value in variable]
+        pass
 
 
 class EventHandler(watchdog_events.FileSystemEventHandler):

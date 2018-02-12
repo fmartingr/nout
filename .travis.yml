@@ -1,0 +1,14 @@
+language: python
+python: 3.5
+
+before_install:
+  - pip install --upgrade pip
+  - pip install -r requirements-test.txt
+
+install:
+  - travis_retry pip install --upgrade codecov
+
+script: make ci
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
